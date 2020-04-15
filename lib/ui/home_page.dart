@@ -15,9 +15,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<Map> _getGifs() async {
     http.Response response;
-    setState(() {
-      _search = _textSearchController.text;
-    });
 
     if (_search == null)
       response = await http.get(
@@ -44,7 +41,11 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.all(10.0),
               child: TextField(
-                onSubmitted: (text) {_getGifs();},
+                onSubmitted: (text) {
+                  setState(() {
+                    _search = text;
+                  });
+                },
                 controller: _textSearchController,
                 decoration: InputDecoration(                    
                     labelText: "Pesquise aqui... ",
